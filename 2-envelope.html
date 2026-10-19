@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giovanna & Alexandre — Esboço 2 · Envelope e Lacre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --linen:#EFE8DA; --paper:#FBF7EF; --env:#2F5F82; --env-dark:#234b69; --env-flap:#295574;
+    --ink:#3F2A1E; --ink-soft:#7A6455; --rose:#A65A4C; --rose-dark:#8a463a; --sage:#98A27A; --line:rgba(63,42,30,.18);
+    --script:'Pinyon Script', cursive; --serif:'Cormorant Garamond', Georgia, serif; --caps:'Cormorant SC', Georgia, serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font:400 19px/1.6 var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  .badge{position:fixed;left:12px;bottom:12px;z-index:50;background:rgba(63,42,30,.85);color:#FBF7EF;font:500 12px/1.3 system-ui,sans-serif;padding:7px 11px;border-radius:999px}
+  .badge a{color:#FBF7EF}
+
+  /* ABERTURA: envelope com lacre */
+  .stage{min-height:100svh;display:grid;place-items:center;padding:90px 16px 40px;
+    background:radial-gradient(ellipse at 50% 40%,#f6f1e6 0%,var(--linen) 70%);position:relative;overflow:hidden}
+  .stage .hint{position:absolute;top:28px;left:0;right:0;text-align:center;font:500 13px/1 var(--caps);letter-spacing:.3em;color:var(--ink-soft)}
+  .env{--w:min(560px,90vw);width:var(--w);aspect-ratio:1.45;position:relative;perspective:1600px;margin-top:12vh}
+  .env .back{position:absolute;inset:0;background:var(--env-dark);border-radius:4px;box-shadow:0 30px 50px -20px rgba(35,75,105,.55)}
+  .env .letter{position:absolute;left:5%;right:5%;top:6%;bottom:6%;overflow:hidden;background:var(--paper);border-radius:2px;
+    transition:transform 1.1s cubic-bezier(.6,0,.2,1) .55s;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:7% 6% 0;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08)}
+  .env.open .letter{transform:translateY(-62%)}
+  .env .front{position:absolute;inset:0;z-index:3;pointer-events:none;filter:drop-shadow(0 -2px 3px rgba(0,0,0,.12))}
+  .env .front::before{content:"";position:absolute;inset:0;background:var(--env);clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
+  .env .front::after{content:"";position:absolute;inset:0;background:var(--env-dark);opacity:.35;clip-path:polygon(0 100%,50% 50%,100% 100%)}
+  .env .flap{position:absolute;left:0;right:0;top:0;height:58%;z-index:4;transform-origin:top;transition:transform .8s cubic-bezier(.6,0,.3,1),z-index 0s .4s}
+  .env .flap::before{content:"";position:absolute;inset:0;background:var(--env-flap);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 4px 6px rgba(0,0,0,.2))}
+  .env.open .flap{transform:rotateX(180deg);z-index:1}
+  .seal{position:absolute;left:50%;top:58%;width:clamp(78px,17vw,104px);aspect-ratio:1;transform:translate(-50%,-50%);z-index:5;border:0;cursor:pointer;
+    border-radius:50% 47% 52% 48%/48% 52% 47% 51%;background:radial-gradient(circle at 35% 30%,#c47565,var(--rose) 45%,var(--rose-dark) 100%);
+    box-shadow:0 6px 14px rgba(0,0,0,.35), inset 0 -4px 8px rgba(0,0,0,.25), inset 0 3px 6px rgba(255,255,255,.25);
+    display:grid;place-items:center;transition:opacity .4s, transform .4s}
+  .seal::before{content:"";position:absolute;inset:12%;border-radius:50%;border:1.5px solid rgba(255,230,215,.35)}
+  .seal span{font:400 clamp(30px,7vw,40px)/1 var(--script);color:#f6dccf;text-shadow:0 1px 0 rgba(0,0,0,.25), 0 -1px 0 rgba(255,255,255,.2)}
+  .seal:hover{transform:translate(-50%,-50%) scale(1.05)}
+  .env.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.6);pointer-events:none}
+  .letter .tag{font:500 11px/1 var(--caps);letter-spacing:.3em;color:var(--ink-soft)}
+  .letter .n{font:400 clamp(30px,7vw,46px)/1.1 var(--script);color:var(--ink);margin:8px 0}
+  .amp{font-family:var(--serif);font-style:italic;font-size:.6em;color:var(--rose)}
+  .letter .oval{width:34%;margin-top:4px}
+  .date-tag{position:absolute;right:-6%;top:34%;z-index:6;background:var(--rose);color:#fbeee6;font:500 clamp(16px,3.6vw,22px)/1 var(--serif);letter-spacing:.12em;
+    padding:16px 22px;transform:rotate(8deg) scale(.4);opacity:0;transition:all .7s cubic-bezier(.3,1.4,.5,1) 1.4s;
+    -webkit-mask:radial-gradient(circle at 6px 50%,transparent 5px,#000 5.5px) -6px 0/100% 14px repeat-y;mask:radial-gradient(circle at 6px 50%,transparent 5px,#000 5.5px) -6px 0/100% 14px repeat-y}
+  .env.open .date-tag{transform:rotate(8deg) scale(1);opacity:1}
+  .flower{position:absolute;z-index:6;width:38%;left:-14%;bottom:-16%;transform:rotate(-14deg);opacity:0;transition:opacity .8s 1.6s}
+  .env.open .flower{opacity:1}
+  .scroll-cue{margin-top:56px;text-align:center;opacity:0;transition:opacity .6s 2s;font:500 13px/1 var(--caps);letter-spacing:.3em;color:var(--ink-soft);text-decoration:none;display:block}
+  .scroll-cue::after{content:"";display:block;width:1px;height:42px;background:var(--ink-soft);margin:14px auto 0;opacity:.5}
+  .opened .scroll-cue{opacity:1}
+
+  /* CONTEÚDO editorial */
+  section{padding:clamp(70px,12vw,140px) 16px}
+  .wrap{max-width:720px;margin:0 auto;text-align:center}
+  .eyebrow{font:500 13px/1 var(--caps);letter-spacing:.32em;color:var(--rose)}
+  h2{font:400 clamp(50px,11vw,84px)/1.05 var(--script);color:var(--ink);margin:10px 0 18px}
+  p.body{color:var(--ink-soft);max-width:560px;margin:0 auto}
+  .orn{width:90px;height:1px;background:var(--line);margin:0 auto 26px}
+
+  .photo-oval{width:min(300px,70vw);margin:0 auto 36px;position:relative}
+  .photo-oval i{display:grid;place-items:center;aspect-ratio:.78;border-radius:50%;background:linear-gradient(160deg,#d8ccb7,#b7a385);font:italic 15px var(--serif);color:#6b5842}
+  .photo-oval img{position:absolute;inset:-9% -11%;width:122%;height:118%;object-fit:fill;pointer-events:none}
+
+  .details{display:grid;gap:44px;margin-top:20px}
+  @media(min-width:680px){.details{grid-template-columns:1fr 1fr}}
+  .details h3{font:400 15px/1 var(--caps);letter-spacing:.3em;color:var(--ink)}
+  .details p{color:var(--ink-soft);margin-top:10px}
+  .details a{display:inline-block;margin-top:12px;font:500 12px/1 var(--caps);letter-spacing:.24em;color:var(--rose);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px}
+
+  .schedule{display:grid;grid-template-columns:repeat(2,1fr);gap:34px 16px;margin-top:34px}
+  @media(min-width:680px){.schedule{grid-template-columns:repeat(4,1fr)}}
+  .schedule svg{width:54px;height:54px;stroke:var(--ink);stroke-width:1.1;fill:none;margin:0 auto 12px;display:block}
+  .schedule b{font:500 14px/1 var(--caps);letter-spacing:.2em;color:var(--rose);display:block}
+  .schedule span{font-size:17px}
+
+  .sw{display:flex;justify-content:center;gap:10px;margin-top:26px}
+  .sw span{width:30px;height:64px;border-radius:30px}
+
+  .gifts{border-top:1px solid var(--line);margin-top:34px;text-align:left}
+  .gift{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .gift strong{font:400 24px/1.2 var(--serif)}
+  .gift small{display:block;color:var(--ink-soft);font-size:16px}
+  .gift button{flex:none;font:500 12px/1 var(--caps);letter-spacing:.22em;background:none;border:1px solid var(--ink);color:var(--ink);padding:10px 14px;cursor:pointer}
+  .gift button:hover{background:var(--ink);color:var(--paper)}
+
+  form{display:grid;gap:22px;text-align:left;margin-top:30px}
+  label{font:500 12px/1 var(--caps);letter-spacing:.26em;color:var(--ink-soft);display:grid;gap:8px}
+  input,textarea,select{font:400 20px var(--serif);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 0;outline:none;border-radius:0}
+  input:focus,textarea:focus{border-color:var(--rose)}
+  .send{justify-self:center;font:500 14px/1 var(--caps);letter-spacing:.3em;background:var(--env);color:var(--paper);border:0;padding:18px 34px;cursor:pointer;border-radius:999px}
+  .send:hover{background:var(--env-dark)}
+
+  .tint{background:var(--linen)}
+  footer{padding:90px 16px 120px;text-align:center;background:var(--env);color:var(--paper)}
+  footer img{width:120px;margin:0 auto 14px;filter:brightness(0) invert(1);opacity:.85}
+  footer p{font:400 40px/1.1 var(--script)}
+  footer small{font:500 12px/1 var(--caps);letter-spacing:.3em;opacity:.7}
+</style>
+</head>
+<body>
+<div class="badge">Esboço 2 · Envelope e Lacre · datas e locais de exemplo · <a href="index.html">ver os 3</a></div>
+
+<header class="stage" id="stage">
+  <p class="hint">Uma carta de Giovanna &amp; Alexandre</p>
+  <div>
+    <div class="env" id="env">
+      <div class="back"></div>
+      <div class="letter">
+        <p class="tag">Vamos nos casar</p>
+        <p class="n">Giovanna <span class="amp">&amp;</span> Alexandre</p>
+        <img class="oval" src="assets/oval.png" alt="Monograma G&A">
+      </div>
+      <div class="front"></div>
+      <div class="flap"></div>
+      <button class="seal" id="seal" aria-label="Abrir o convite"><span>GA</span></button>
+      <div class="date-tag">[DD · MM · AAAA]</div>
+      <img class="flower" src="assets/buque.png" alt="">
+    </div>
+    <a class="scroll-cue" href="#convite">Role para ver o convite</a>
+  </div>
+</header>
+
+<main>
+  <section id="convite">
+    <div class="wrap reveal">
+      <div class="photo-oval"><i>foto de vocês</i><img src="assets/oval.png" alt=""></div>
+      <p class="eyebrow">Com a bênção das nossas famílias</p>
+      <h2>Nossa história</h2>
+      <p class="body">Espaço para um texto curto sobre vocês. Este esboço segue o vídeo da blahaus: muito espaço em branco, letra cursiva nos títulos e só uma ilustração por tela.</p>
+    </div>
+  </section>
+
+  <section class="tint">
+    <div class="wrap reveal">
+      <p class="eyebrow">Os detalhes</p>
+      <h2>Data &amp; Local</h2>
+      <div class="orn"></div>
+      <div class="details">
+        <div><h3>Cerimônia</h3><p>[Local]<br>[Endereço]<br>[horário]</p><a href="#">Ver no mapa</a></div>
+        <div><h3>Celebração</h3><p>[Local]<br>[Endereço]<br>logo após a cerimônia</p><a href="#">Ver no mapa</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap reveal">
+      <p class="eyebrow">Programação</p>
+      <h2>O dia</h2>
+      <div class="schedule">
+        <div><svg viewBox="0 0 54 54"><circle cx="21" cy="32" r="11"/><circle cx="33" cy="32" r="11"/><path d="M24 14l3-5 3 5-3 4z"/></svg><b>[17h]</b><span>Cerimônia</span></div>
+        <div><svg viewBox="0 0 54 54"><path d="M18 10h10c0 10-1 16-5 16s-5-6-5-16zM23 26v16M17 42h12"/><path d="M30 12h10c0 10-1 16-5 16s-5-6-5-16zM35 28v14M29 42h12"/></svg><b>[18h]</b><span>Brinde</span></div>
+        <div><svg viewBox="0 0 54 54"><circle cx="27" cy="29" r="13"/><circle cx="27" cy="29" r="8"/><path d="M8 14v8a3 3 0 006 0v-8M11 22v20M44 14c-4 2-4 10 0 12v16"/></svg><b>[19h]</b><span>Jantar</span></div>
+        <div><svg viewBox="0 0 54 54"><path d="M22 38V14l18-4v24"/><circle cx="18" cy="38" r="4"/><circle cx="36" cy="34" r="4"/></svg><b>[21h]</b><span>Festa</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tint">
+    <div class="wrap reveal">
+      <p class="eyebrow">Outros detalhes</p>
+      <h2>Traje</h2>
+      <p class="body">Passeio completo. Uma paleta para inspirar, tirada das hortênsias do convite.</p>
+      <div class="sw"><span style="background:#2F5F82"></span><span style="background:#7FA0BC"></span><span style="background:#A65A4C"></span><span style="background:#98A27A"></span><span style="background:#E3D3B4"></span></div>
+      <div style="height:70px"></div>
+      <h2>Onde ficar</h2>
+      <p class="body">[Hotel 1] · código [CUPOM] com desconto<br>[Hotel 2] · a 5 minutos da cerimônia</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap reveal">
+      <p class="eyebrow">Lista de presentes</p>
+      <h2>Nossa lua de mel</h2>
+      <p class="body">Experiências da viagem, no valor que você quiser, por PIX ou cartão.</p>
+      <div class="gifts">
+        <div class="gift"><div><strong>Jantar a dois</strong><small>a partir de R$ 100</small></div><button>Presentear</button></div>
+        <div class="gift"><div><strong>Passeio de barco</strong><small>a partir de R$ 150</small></div><button>Presentear</button></div>
+        <div class="gift"><div><strong>Dia de spa</strong><small>a partir de R$ 80</small></div><button>Presentear</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tint" id="rsvp">
+    <div class="wrap reveal" style="max-width:520px">
+      <img src="assets/hortini.png" alt="" style="width:200px;margin:0 auto">
+      <h2>Confirme sua presença</h2>
+      <p class="body">Por favor, responda até [data limite].</p>
+      <form onsubmit="event.preventDefault();this.innerHTML='<p style=text-align:center;font-size:24px>Obrigado! Recebemos sua resposta.</p>'">
+        <label>Nome completo<input required></label>
+        <label>Você vai?<select><option>Sim, estarei lá</option><option>Infelizmente não poderei</option></select></label>
+        <label>Quantas pessoas do convite<select><option>1</option><option>2</option></select></label>
+        <label>Restrição alimentar<input placeholder="Opcional"></label>
+        <label>Recado para os noivos<textarea rows="2"></textarea></label>
+        <button class="send">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <img src="assets/mono.png" alt="">
+    <p>Daqui até a eternidade</p>
+    <small>Giovanna &amp; Alexandre · [AAAA]</small>
+  </footer>
+</main>
+
+<script>
+const env = document.getElementById('env');
+document.getElementById('seal').onclick = () => {
+  env.classList.add('open');
+  document.getElementById('stage').classList.add('opened');
+};
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
